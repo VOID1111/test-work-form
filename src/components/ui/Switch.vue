@@ -1,0 +1,117 @@
+<template>
+  <div class="switch">
+    <label for="switchLabel" class="switch__elm">
+      <input v-model="checkbox" id="switchLabel" type="checkbox">
+      <div class="slider round"></div>
+    </label>
+    <span v-if="label" class="switch__label">{{ label }}</span>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'UiSwitch',
+  props: {
+    value: {
+      type: Boolean,
+      default: false,
+    },
+    label: String,
+  },
+  data() {
+    return {};
+  },
+  computed: {
+    checkbox: {
+      get() {
+        return this.value;
+      },
+      set(val) {
+        this.$emit('input', val);
+      },
+    },
+  },
+};
+</script>
+
+<style scoped lang="scss">
+$color1-switch: #7D7AFF;
+$color2-switch: #FDFDFD;
+$color3-switch: #CDCED8;
+$color4-switch: #acacac;
+$color5-switch: #000;
+
+.switch {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+
+  &__elm {
+    position: relative;
+    display: inline-block;
+    width: 39px;
+    height: 19px;
+
+    input {
+      display: none;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: $color4-switch;
+      -webkit-transition: 0.4s;
+      transition: 0.4s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 17px;
+      width: 17px;
+      left: 0;
+      bottom: 0;
+      background-color: $color2-switch;
+      -webkit-transition: 0.4s;
+      transition: 0.4s;
+      border: 1px solid $color3-switch;
+    }
+
+    input:checked + .slider {
+      background-color: $color1-switch;
+    }
+
+    input:focus + .slider {
+      box-shadow: 0 0 1px $color1-switch;
+    }
+
+    input:checked + .slider:before {
+      -webkit-transform: translateX(20px);
+      -ms-transform: translateX(20px);
+      transform: translateX(20px);
+    }
+
+    .slider.round {
+      border-radius: 34px;
+    }
+
+    .slider.round:before {
+      border-radius: 50%;
+    }
+  }
+
+  &__label {
+    margin-left: 15px;
+    color: $color5-switch;
+    font-family: Montserrat;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 19px;
+  }
+}
+</style>
