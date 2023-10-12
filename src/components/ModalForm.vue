@@ -5,7 +5,7 @@
     </div>
     <div class="modal__form form">
       <div class="form__public">
-        <UiSwitch v-model="form.public" label="Публичный профиль" />
+        <ui-switch v-model="form.public" label="Публичный профиль" />
         <p class="form__public_subtitle">
           Включает профиль для просмотра другими пользователями по ссылке
         </p>
@@ -13,7 +13,7 @@
       <div class="form__data">
         <h3 class="form__data_title">Данные</h3>
         <div class="form__data_fields">
-          <UiInput
+          <ui-input
             v-model="form.username"
             field="username"
             placeholder="Имя"
@@ -21,7 +21,7 @@
             :error="errors.username || []"
             @input="errors.username = null"
           />
-          <UiInput
+          <ui-input
             v-model="form.email"
             field="email"
             placeholder="Email"
@@ -29,7 +29,7 @@
             :error="errors.email || []"
             @input="errors.email = null"
           />
-          <UiSelect
+          <ui-select
             v-model="form.role"
             field="role"
             placeholder="Должность"
@@ -37,7 +37,7 @@
             :error="errors.role || []"
             @input="errors.role = null"
           />
-          <UiInput
+          <ui-input
             v-model="form.password"
             field="password"
             placeholder="Пароль"
@@ -45,7 +45,7 @@
             :error="errors.password || []"
             @input="errors.password = null"
           />
-          <UiInput
+          <ui-input
             v-model="form.password_repeat"
             field="password_repeat"
             placeholder="Повторите пароль"
@@ -56,7 +56,7 @@
         </div>
       </div>
       <div class="form__confirm">
-        <UiCheckbox v-model="confirm" />
+        <ui-checkbox v-model="confirm" />
         <p class="form__confirm_text">
           Нажимая на кнопку “Регистрация”, я подтверждаю свое согласение с политикой <br>
           конфиденциальности и обработки персональных данных
@@ -75,19 +75,8 @@
 </template>
 
 <script>
-import UiSwitch from './ui/Switch.vue';
-import UiInput from './ui/Input.vue';
-import UiSelect from './ui/Select.vue';
-import UiCheckbox from './ui/Checkbox.vue';
-
 export default {
   name: 'ModalForm',
-  components: {
-    UiSwitch,
-    UiInput,
-    UiSelect,
-    UiCheckbox,
-  },
   props: {
     defaultValues: {
       type: Object,
@@ -123,34 +112,20 @@ export default {
         Object.assign(this.form, val);
       }
     },
-    sendPost() {
+    async sendPost() {
       const data = {
         ...this.form,
         public: Number(this.form.public),
         role: this.form.role ? this.form.role.number : 0,
       };
 
-      const formData = new FormData();
-      for (const key in data) {
-        formData.append(key, data[key]);
-      }
-
-      const requestOptions = {
-        method: 'POST',
-        body: formData,
-      };
-      fetch('https://lmstestapi.reezonly.com/v1/user/signup', requestOptions)
-        .then((response) => response.json())
-        .then((res) => {
-          if (res.success) {
-            this.$emit('success', true);
-          } else if (!res.success && res.errors) {
-            this.errors = res.errors;
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      await this.$store.dispatch('sendFormData', data).then((response) => {
+        if (response.type === 'success') {
+          this.$emit('success', true);
+        } else if (response.type === 'error') {
+          this.errors = response.data;
+        }
+      });
     },
   },
   computed: {
@@ -169,21 +144,17 @@ export default {
 <style scoped lang="scss">
 .modal {
   width: 958px;
-  background-color: white;
+  background-color: $color11;
   border-radius: 15px;
+  box-shadow: 4px 4px 8px 0px $color10;
 
   &__header {
     padding: 27px 20px;
-    box-shadow: 0px -1px 0px 0px #EDEFF3 inset;
+    box-shadow: 0px -1px 0px 0px $color12 inset;
 
     &_title {
-      color: #000;
-      font-family: Montserrat;
-      font-size: 19px;
-      font-style: normal;
-      font-weight: 700;
-      line-height: 27px;
-      letter-spacing: -0.066px;
+      @include typography-1;
+      color: $color5;
     }
   }
 }
@@ -193,31 +164,22 @@ export default {
 
   &__public {
     padding: 27px 0 30px 0;
-    border-bottom: 1px solid #D9D9D9;
+    border-bottom: 1px solid $color8;
 
     &_subtitle {
+      @include typography-2;
       margin-top: 15px;
-      color: #696977;
-      font-family: Montserrat;
-      font-size: 14px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: 19px;
-      letter-spacing: -0.021px;
+      color: $color9;
     }
   }
 
   &__data {
     padding: 20px 0 30px 0;
-    border-bottom: 1px solid #D9D9D9;
+    border-bottom: 1px solid $color8;
 
     &_title {
-      color: #000;
-      font-family: Montserrat;
-      font-size: 16px;
-      font-style: normal;
-      font-weight: 500;
-      line-height: 19px;
+      color: $color5;
+      @include typography-3;
     }
 
     &_fields {
@@ -239,13 +201,8 @@ export default {
 
     &_text {
       margin-left: 15px;
-      color: #000;
-      font-family: Montserrat;
-      font-size: 14px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: 19px;
-      letter-spacing: -0.021px;
+      color: $color5;
+      @include typography-2;
     }
   }
 
@@ -257,19 +214,14 @@ export default {
     margin-bottom: 42px;
     margin-top: 37px;
     border-radius: 9px;
-    border: 1px solid #07A86E;
-    color: #07A86E;
-    background-color: white;
-    font-family: Montserrat;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 19px;
-    letter-spacing: -0.021px;
+    border: 1px solid $color7;
+    color: $color7;
+    background-color: $color11;
+    @include typography-2;
 
     &:hover {
-      background-color: #07A86E;
-      color: white;
+      background-color: $color7;
+      color: $color11;
       cursor: pointer;
     }
 
@@ -277,8 +229,8 @@ export default {
       opacity: 0.6;
 
       &:hover {
-        background-color: white;
-        color: #07A86E;
+        background-color: $color11;
+        color: $color7;
         cursor: not-allowed;
       }
     }

@@ -1,0 +1,36 @@
+@mixin font-default {
+    font-family: Montserrat;
+    font-style: normal;
+}
+
+@mixin typography-1 {
+    @include font-default;
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 27px;
+    letter-spacing: -0.066px;
+}
+
+@mixin typography-2 {
+    @include font-default;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 19px;
+    letter-spacing: -0.021px;
+}
+
+@mixin typography-3 {
+    @include font-default;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19px;
+    letter-spacing: -0.021px;
+}
+
+@mixin typography-4 {
+    @include font-default;
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 12px;
+    letter-spacing: -0.021px;
+}

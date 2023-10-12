@@ -38,42 +38,23 @@ export default {
   position: relative;
 
   input {
-    height: 37px;
-    width: 100%;
     width: calc(100% - 20px);
     padding: 0 10px;
-    border-radius: 11px;
-    border: 1px solid #E6E6EB;
-    font-size: 14px;
-    font-weight: 400;
-    font-style: normal;
-    font-family: Montserrat;
-    color: black;
+    @include input-style;
+    @include typography-2;
 
     &:focus{
       outline: none;
     }
 
     &::placeholder {
-      color: #9292A0;
-      font-family: Montserrat;
-      font-size: 14px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: 19px;
-      letter-spacing: -0.021px;
+      color: $color13;
+      @include typography-2;
     }
   }
 
   &__error {
-    position: absolute;
-    top: 40px;
-    left: 10px;
-    font-size: 10px;
-    font-weight: 500;
-    font-family: Montserrat;
-    font-style: normal;
-    color: red;
+    @include input-error-style;
   }
 }
 </style>

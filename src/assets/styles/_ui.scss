@@ -1,0 +1,16 @@
+$radius-input: 11px;
+
+@mixin input-style {
+    height: 37px;
+    border-radius: $radius-input;
+    border: 1px solid $color15;
+    color: $color5;
+}
+
+@mixin input-error-style {
+    position: absolute;
+    top: 40px;
+    left: 10px;
+    color: $color14;
+    @include typography-4;
+}

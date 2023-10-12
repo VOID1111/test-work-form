@@ -1,7 +1,7 @@
 <template>
   <div class="switch">
-    <label for="switchLabel" class="switch__elm">
-      <input v-model="checkbox" id="switchLabel" type="checkbox">
+    <label for="switch-label" class="switch__elm">
+      <input v-model="checkbox" id="switch-label" type="checkbox">
       <div class="slider round"></div>
     </label>
     <span v-if="label" class="switch__label">{{ label }}</span>
@@ -16,10 +16,10 @@ export default {
       type: Boolean,
       default: false,
     },
-    label: String,
-  },
-  data() {
-    return {};
+    label: {
+      type: String,
+      default: '',
+    },
   },
   computed: {
     checkbox: {
@@ -35,12 +35,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-$color1-switch: #7D7AFF;
-$color2-switch: #FDFDFD;
-$color3-switch: #CDCED8;
-$color4-switch: #acacac;
-$color5-switch: #000;
-
 .switch {
   display: flex;
   align-items: center;
@@ -63,7 +57,7 @@ $color5-switch: #000;
       left: 0;
       right: 0;
       bottom: 0;
-      background-color: $color4-switch;
+      background-color: $color4;
       -webkit-transition: 0.4s;
       transition: 0.4s;
     }
@@ -75,18 +69,18 @@ $color5-switch: #000;
       width: 17px;
       left: 0;
       bottom: 0;
-      background-color: $color2-switch;
+      background-color: $color2;
       -webkit-transition: 0.4s;
       transition: 0.4s;
-      border: 1px solid $color3-switch;
+      border: 1px solid $color3;
     }
 
     input:checked + .slider {
-      background-color: $color1-switch;
+      background-color: $color1;
     }
 
     input:focus + .slider {
-      box-shadow: 0 0 1px $color1-switch;
+      box-shadow: 0 0 1px $color1;
     }
 
     input:checked + .slider:before {
@@ -105,13 +99,9 @@ $color5-switch: #000;
   }
 
   &__label {
+    @include typography-3;
     margin-left: 15px;
-    color: $color5-switch;
-    font-family: Montserrat;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 19px;
+    color: $color5;
   }
 }
 </style>

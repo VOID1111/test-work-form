@@ -75,10 +75,8 @@ export default {
   &__elm {
     position: relative;
     z-index: 1;
-    height: 37px;
-    border-radius: 11px;
-    border: 1px solid #E6E6EB;
     cursor: pointer;
+    @include input-style;
 
     &--open {
       border-bottom-left-radius: 0;
@@ -88,22 +86,14 @@ export default {
     &_selected {
       display: block;
       padding: 10px;
-      font-size: 14px;
-      font-weight: 400;
-      font-style: normal;
-      font-family: Montserrat;
-      color: black;
+      color: $color5;
+      @include typography-2;
     }
 
     &_placeholder {
       padding: 10px;
-      color: #9292A0;
-      font-family: Montserrat;
-      font-size: 14px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: 19px;
-      letter-spacing: -0.021px;
+      color: $color13;
+      @include typography-2;
     }
 
     .arrow {
@@ -118,14 +108,7 @@ export default {
   }
 
   &__error {
-    height: 10px;
-    font-size: 10px;
-    font-weight: 500;
-    padding-left: 10px;
-    padding-top: 2px;
-    font-family: Montserrat;
-    font-style: normal;
-    color: red;
+    @include input-error-style;
   }
 
   ul {
@@ -135,34 +118,34 @@ export default {
     list-style-type: none;
     padding: 0;
     margin: 0;
-    font-size: 16px;
-    border: 1px solid #E6E6EB;
-    border-bottom-right-radius: 11px;
-    border-bottom-left-radius: 11px;
+    border: 1px solid $color15;
+    border-bottom-right-radius: $radius-input;
+    border-bottom-left-radius: $radius-input;
     position: absolute;
     z-index: 1;
-    background: #fff;
+    background: $color11;
+    @include typography-2
   }
 
   li {
     padding: 12px;
-    color: #666;
+    color: $color9;
 
     &:last-child {
-      border-bottom-right-radius: 11px;
-      border-bottom-left-radius: 11px;
+      border-bottom-right-radius: $radius-input;
+      border-bottom-left-radius: $radius-input;
     }
 
     &:hover {
-      color: #7D7AFF;
-      background: #eaeaea;
+      color: $color1;
+      background: $color8;
       cursor: pointer;
     }
   }
 
   .current {
-    color: white;
-    background: #7D7AFF;
+    color: $color11;
+    background: $color1;
   }
 
   .hidden {
